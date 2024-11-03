@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <title>SalesHub - Home</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>SalesHub</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search..." />
+                <button type="button">Search</button>
+            </div>
+            <div class="cta">
+                <a href="#get help" class="cta-button">Get Help</a>
+            </div>
+
+            <div class="profile">
+                <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture" class="profile-pic" />
+                <div class="profile-info">
+                    <p class="profile-name">John Doe</p>
+                    <p class="profile-email">john.doe@example.com</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="button-section">
+        <h2 class="button-section-title">Quick Access</h2>
+        <div class="button-group">
+            <a href="#link1" class="button">Button 1</a>
+            <a href="#link2" class="button">Button 2</a>
+            <a href="#link3" class="button">Button 3</a>
+            <a href="#link4" class="button">Button 4</a>
+            <a href="#link5" class="button">Button 5</a>
+            <a href="#link6" class="button">Button 6</a>
+        </div>
+    </section>
+    
+    <section class="info-section">
+        
+        <section class="left-section">
+            <h2>Products</h2>
+            <div class="product-container">
+                <ul class="product-list">
+                    {% for product in products %}
+                        <li class="product-item">
+                            <h3>{{ product.name }}</h3>
+                            <p>Price: ${{ product.price }}</p>
+                            <p>Description: {{ product.description }}</p>
+                        </li>
+                    {% empty %}
+                        <li>No products available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        
+
+        <div class="info-part center">
+            <h3>Center Section Title</h3>
+            <p>Your content for the center section goes here.</p>
+        </div>
+
+        <div class="info-part right">
+            <h3>Right Section Title</h3>
+            <p>Your content for the right section goes here.</p>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-contact">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <p>Email: <a href="mailto:support@saleshub.com">support@saleshub.com</a></p>
+                    <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SalesHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
