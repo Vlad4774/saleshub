@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Change background color to light gray */
+}
+
+.header {
+    background-color: #1f1f1f; /* Darker header background */
+    padding: 20px 0;
+    position: fixed; /* Fixed position for sticky header */
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Ensure header is above other elements */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Limit max width */
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px; /* Padding for container */
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px; /* Logo font size */
+    color: #00bcd4; /* Highlight logo color */
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation li {
+    margin: 0 15px; /* Spacing between nav items */
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #ffffff; /* White text for nav links */
+    font-size: 16px; /* Font size for nav links */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.navigation a:hover {
+    color: #00bcd4; /* Highlight color on hover */
+}
+
+main {
+    margin-top: 80px; /* Space for fixed header */
+    padding: 20px; /* Add padding to the main content */
+}
+
+body {
+    background-color: black; /* Light gray background for the entire page */
+    font-family: Arial, sans-serif; /* Consistent font family */
+}
+
+
+
