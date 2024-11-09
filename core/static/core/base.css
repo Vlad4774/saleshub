@@ -1,8 +1,11 @@
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Change background color to light gray */
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text */
 }
+
 
 .header {
     background-color: #1f1f1f; /* Darker header background */
@@ -13,12 +16,12 @@ body {
     z-index: 1000; /* Ensure header is above other elements */
 }
 
-.container {
+.header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px; /* Limit max width */
-    margin: 0 auto; /* Center the container */
+    margin: 0 auto;
     padding: 0 20px; /* Padding for container */
 }
 
@@ -28,6 +31,7 @@ body {
     color: #00bcd4; /* Highlight logo color */
 }
 
+/* Navigation styles */
 .navigation ul {
     list-style: none;
     display: flex;
@@ -50,15 +54,51 @@ body {
     color: #00bcd4; /* Highlight color on hover */
 }
 
-main {
-    margin-top: 80px; /* Space for fixed header */
-    padding: 20px; /* Add padding to the main content */
+/* Call-to-action button positioning */
+.cta {
+    margin-left: auto; /* Push CTA button to the right */
 }
 
-body {
-    background-color: black; /* Light gray background for the entire page */
-    font-family: Arial, sans-serif; /* Consistent font family */
+/* Login button styles */
+.cta-button, .login-button {
+    padding: 10px 20px; /* Same padding for both buttons */
+    font-size: 16px; /* Same font size */
+    border: none; /* Remove borders */
+    border-radius: 5px; /* Same border radius for rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
 }
+
+.cta-button {
+    background-color: #0097a7; /* Example color for the CTA button */
+    color: white; /* Text color for the CTA button */
+}
+
+.login-button {
+    background-color: #0097a7; /* Example color for the Login button */
+    color: white; /* Text color for the Login button */
+}
+
+.login-button:hover {
+    background-color: #0097a7; /* Darker blue on hover */
+}
+
+.footer {
+    background-color: #0097a7; /* Darker background for a refined look */
+    color: #ffffff; /* White text for contrast */
+    padding: 60px 20px; /* Padding for spacing inside the footer */
+    font-family: Arial, sans-serif; /* Font for consistency */
+    font-size: 15px;
+}
+
+.footer .container {
+    max-width: 1200px;
+    max-height: 150px; /* Limit the container width */
+    margin: 0 auto; /* Center the container */
+    display: flex; /* Flex layout for sections */
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center; /* Center the content */
+}
+
 
 
 

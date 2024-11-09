@@ -1,36 +1,12 @@
+{% extends "core/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'core/home.css' %}">
-    <title>SalesHub - Home</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1>SalesHub</h1>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search..." />
-                <button type="button">Search</button>
-            </div>
-            <div class="cta">
-                <a href="#get help" class="cta-button">Get Help</a>
-            </div>
+{% block head %}
+<link rel="stylesheet" href="{% static 'core/home.css' %}">
+<title>SalesHub</title>
+{% endblock %}
 
-            <div class="profile">
-                <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture" class="profile-pic" />
-                <div class="profile-info">
-                    <p class="profile-name">John Doe</p>
-                    <p class="profile-email">john.doe@example.com</p>
-                </div>
-            </div>
-        </div>
-    </header>
+{% block content %}
 
     <section class="button-section">
         <h2 class="button-section-title">Quick Access</h2>
@@ -45,7 +21,6 @@
     </section>
     
     <section class="info-section">
-        
         <section class="left-section">
             <h2>Products</h2>
             <div class="product-container">
@@ -62,7 +37,6 @@
                 </ul>
             </div>
         </section>
-        
 
         <div class="info-part center">
             <h3>Center Section Title</h3>
@@ -73,23 +47,6 @@
             <h3>Right Section Title</h3>
             <p>Your content for the right section goes here.</p>
         </div>
-
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-contact">
-                    <h3 class="footer-title">Contact Us</h3>
-                    <p>Email: <a href="mailto:support@saleshub.com">support@saleshub.com</a></p>
-                    <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 SalesHub. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-    
-</body>
-</html>
+{% endblock %}

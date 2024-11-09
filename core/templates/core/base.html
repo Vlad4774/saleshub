@@ -5,16 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/base.css' %}">
     {% block head %}{% endblock %}
-    <title>SalesHub Landing Page</title>
 </head>
 
 <body>
 <header class="header">
     <div class="container">
         <div class="logo">
-            <h1>SalesHub</h1>
+            <a href="{% url 'get_started' %}">
+                <h1>SalesHub</h1>
+            </a>
         </div>
+
+        {% if request.path == '/' or request.path == '/login/' %}
         <nav class="navigation">
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -24,8 +28,45 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
+        {% endif %}
+
+        {% if request.path == '/' %}
+        <nav class="login">
+            <div class="login-button">
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        </nav>
+        {% endif %}
+
+        {% if request.path == '/home/' %}
+        <div class="search-bar">
+            <input type="text" placeholder="Search..." />
+            <button type="button">Search</button>
+        </div>
+        <div class="cta">
+            <a href="#get help" class="cta-button">Get Help</a>
+        </div>
+
+        <div class="profile">
+            <img src="{% static 'images/profile.jpg' %}" alt="Profile Picture" class="profile-pic" />
+            <div class="profile-info">
+                <p class="profile-name">{{ request.user.username }}</p>
+            </div>
+        </div>
+        {% endif %}
     </div> 
 </header>
+
 {% block content %}{% endblock %}
+
+<footer class="footer">
+    <div class="container">
+         <h3 class="footer-title">Contact Us</h3>
+                <p>Email: <a href="vladbaracut7@yahoo.com">support@salesHub.com</a></p>
+                <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+                <p>&copy; 2024 SalesHub. All rights reserved.</p>
+    </div>
+</footer>
+
 </body>
 </html>

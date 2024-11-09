@@ -5,15 +5,6 @@ body {
     color: #ffffff; /* White text */
 }
 
-.header {
-    background-color: #1f1f1f; /* Darker header background */
-    padding: 20px 0;
-    position: fixed; /* Fixed position for sticky header */
-    width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Ensure header is above other elements */
-}
-
 .container {
     display: flex;
     justify-content: space-between;
@@ -21,62 +12,6 @@ body {
     max-width: 1200px; /* Limit max width */
     margin: 0 auto;
     padding: 0 20px; /* Padding for container */
-}
-
-.logo h1 {
-    margin: 0;
-    font-size: 24px; /* Logo font size */
-    color: #00bcd4; /* Highlight logo color */
-}
-
-.navigation ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-
-.navigation li {
-    margin: 0 15px; /* Spacing between nav items */
-}
-
-.navigation a {
-    text-decoration: none;
-    color: #ffffff; /* White text for nav links */
-    font-size: 16px; /* Font size for nav links */
-    transition: color 0.3s; /* Smooth transition for hover effect */
-}
-
-.navigation a:hover {
-    color: #00bcd4; /* Highlight color on hover */
-}
-
-.cta {
-    margin-left: auto; /* Push CTA button to the right */
-}
-
-.cta-button, .login-button {
-    padding: 10px 20px;      /* Same padding for both buttons */
-    font-size: 16px;         /* Same font size */
-    border: none;            /* Remove borders */
-    border-radius: 5px;      /* Same border radius for rounded corners */
-    cursor: pointer;          /* Change cursor to pointer */
-}
-
-.cta-button {
-    background-color: #0097a7; /* Example color for the CTA button */
-    color: white;               /* Text color for the CTA button */
-}
-
-.login-button {
-    background-color: #0097a7; /* Example color for the Login button */
-    color: white;               /* Text color for the Login button */
-}
-
-
-.login-button:hover {
-    background-color: #0097a7; /* Darker blue on hover */
 }
 
 .hero {
@@ -453,80 +388,5 @@ body {
 /* Optional: To make answers visible on question click using JavaScript */
 .faq-item.active .faq-answer {
     display: block; /* Show answer when active */
-}
-
-.footer {
-    background-color: #1f1f1f; /* Dark background for footer */
-    color: #ffffff; /* White text */
-    padding: 40px 20px; /* Padding for the footer */
-}
-
-.container {
-    max-width: 1200px; /* Limit max width of the container */
-    margin: 0 auto; /* Center the container */
-}
-
-.footer-content {
-    display: flex; /* Use flexbox for footer layout */
-    justify-content: space-between; /* Space out footer sections */
-    margin-bottom: 20px; /* Space below the content */
-}
-
-.footer-title {
-    font-size: 20px; /* Font size for footer titles */
-    margin-bottom: 15px; /* Margin below the title */
-}
-
-.link-list, .social-icons {
-    list-style: none; /* Remove default list styles */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-}
-
-.link-list li, .social-icons li {
-    margin-bottom: 10px; /* Margin between list items */
-}
-
-.link-list a, .social-icons a {
-    color: #00bcd4; /* Link color */
-    text-decoration: none; /* Remove underline from links */
-    transition: color 0.3s; /* Smooth transition for hover effect */
-}
-
-.link-list a:hover, .social-icons a:hover {
-    color: #0097a7; /* Darker shade on hover */
-}
-
-.footer-contact p {
-    margin: 5px 0; /* Margin for contact paragraphs */
-}
-
-.footer-bottom {
-    text-align: center; /* Center align footer bottom text */
-    border-top: 1px solid #333333; /* Light border on top */
-    padding-top: 20px; /* Padding above the bottom text */
-    font-size: 14px; /* Font size for footer bottom text */
-    color: #cccccc; /* Light gray color for footer bottom text */
-}
-
-.social-icons {
-    display: flex; /* Use flexbox for social icons */
-    gap: 15px; /* Space between icons */
-}
-
-.social-icons a {
-    font-size: 20px; /* Font size for social icons */
-    color: #ffffff; /* White color for social icons */
-    transition: color 0.3s; /* Smooth transition for hover effect */
-}
-
-.social-icons a:hover {
-    color: #00bcd4; /* Change color on hover */
-}
-
-.footer {
-    background-color: #E5E6E4;
-    color: black; /* Optional: sets text color to white for better readability */
-    height: 20px;
 }
 
