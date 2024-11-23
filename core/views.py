@@ -65,6 +65,9 @@ def save_product_changes(request):
                         volume_data.expected_volume = item['expected_volume']
                         volume_data.max_volume = item['max_volume']
                         volume_data.save()
+                        print(f"Updating volume with ID {item['id']}")
+                        print(f"New values: {item['year']}, {item['min_volume']}, {item['expected_volume']}, {item['max_volume']}")
+
 
                     except Volume.DoesNotExist:
                         # Log the ID of the missing volume for debugging purposes
