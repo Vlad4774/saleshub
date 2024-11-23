@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'core/product.css' %}">
+<script src="{% static 'js/product.js' %}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css">
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="product-container">
+    <div class="product-sidebar" style="width: 25%; float: left;">
+        <h2>Product Details</h2>
+        <p>{{ product.description }}</p>
+    </div>
+    
+    <div class="product-grid-container" style="width: 75%; float: left;">
+        <h2>Data Grid</h2>
+
+        <!-- Tabs for switching between grids -->
+        <div class="tabs">
+            <button class="tab-button" onclick="showTab('volume')">Volume</button>
+            <button class="tab-button" onclick="showTab('price')">Price</button>
+            <button class="tab-button" onclick="showTab('cost')">Costs</button>
+            <button onclick="saveChanges()">Save Changes</button>
+        </div>
+        
+        <!-- Volume Grid Tab -->
+        <div id="volume-tab" class="tab-content" style="display: block;">
+            <div id="volumeGrid" class="ag-theme-alpine" style="height: 350px;"></div>
+        </div>
+
+        <!-- Price Grid Tab -->
+        <div id="price-tab" class="tab-content" style="display: none;">
+            <div id="priceGrid" class="ag-theme-alpine" style="height: 350px;"></div>
+        </div>
+
+        <!-- Costs Grid Tab -->
+        <div id="cost-tab" class="tab-content" style="display: none;">
+            <div id="costGrid" class="ag-theme-alpine" style="height: 350px;"></div>
+        </div>
+    </div>
+</div>
+
+{{ volume_data|json_script:"volumeData" }}
+{{ prices_data|json_script:"pricesData" }}
+{{ costs_data|json_script:"costsData" }}
+
+<script>
+
+    let volumeGridOptions, priceGridOptions, costGridOptions;
+
+    function showTab(tabName) {
+        const tabs = ['volume', 'price', 'cost'];
+
+        tabs.forEach(function(tab) {
+            document.getElementById(tab + '-tab').style.display = 'none';
+        });
+
+        document.getElementById(tabName + '-tab').style.display = 'block';
+    }
+
+    const volumeData = JSON.parse(document.getElementById('volumeData').textContent);
+    const pricesData = JSON.parse(document.getElementById('pricesData').textContent);
+    const costsData = JSON.parse(document.getElementById('costsData').textContent);
+
+    const volumeColumns = [
+        { headerName: "Year", field: "year", sortable: true, filter: true, editable: true },
+        { headerName: "Min Volume", field: "min_volume", sortable: true, filter: true, editable: true },
+        { headerName: "Expected Volume", field: "expected_volume", sortable: true, filter: true, editable: true },
+        { headerName: "Max Volume", field: "max_volume", sortable: true, filter: true, editable: true }
+    ];
+
+    const priceColumns = [
+        { headerName: "Year", field: "year", sortable: true, filter: true },
+        { headerName: "Base Price", field: "base_price", sortable: true, filter: true },
+        { headerName: "Packaging Price", field: "packaging_price", sortable: true, filter: true },
+        { headerName: "Transport Price", field: "transport_price", sortable: true, filter: true }
+    ];
+
+    const costColumns = [
+        { headerName: "Year", field: "year", sortable: true, filter: true },
+        { headerName: "Base Cost", field: "base_cost", sortable: true, filter: true },
+        { headerName: "Labor Cost", field: "labor_cost", sortable: true, filter: true },
+        { headerName: "Material Cost", field: "material_cost", sortable: true, filter: true },
+        { headerName: "Overhead Cost", field: "overhead_cost", sortable: true, filter: true }
+    ];
+
+    // Initialize grids
+    volumeGridOptions = {
+        columnDefs: volumeColumns,
+        rowData: volumeData,
+    };
+    priceGridOptions = {
+        columnDefs: priceColumns,
+        rowData: pricesData,
+    };
+    costGridOptions = {
+        columnDefs: costColumns,
+        rowData: costsData,
+    };
+
+    // Create the AG Grids
+    new agGrid.Grid(document.getElementById('volumeGrid'), volumeGridOptions);
+    new agGrid.Grid(document.getElementById('priceGrid'), priceGridOptions);
+    new agGrid.Grid(document.getElementById('costGrid'), costGridOptions);
+
+    showTab('volume');  // Default to 'volume' tab
+
+    function saveChanges() {
+        let updatedRows;
+
+        // Get updated rows from the active grid
+        if (document.getElementById('volume-tab').style.display === 'block') {
+            updatedRows = volumeGridOptions.api.getUpdatedRows();
+        } else if (document.getElementById('price-tab').style.display === 'block') {
+            updatedRows = priceGridOptions.api.getUpdatedRows();
+        } else if (document.getElementById('cost-tab').style.display === 'block') {
+            updatedRows = costGridOptions.api.getUpdatedRows();
+        }
+
+        if (updatedRows && updatedRows.length > 0) {
+            const updatedData = updatedRows.map(row => row.data);
+
+            // Send updated data to server
+            fetch("{% url 'product_save_changes' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify({ updated_data: updatedData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Changes saved successfully!');
+                } else {
+                    alert('Failed to save changes.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving changes.');
+            });
+        } else {
+            alert('No changes to save!');
+        }
+    }
+
+</script>
+{% endblock %}

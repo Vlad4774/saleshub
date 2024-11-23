@@ -11,41 +11,35 @@
     <section class="button-section">
         <h2 class="button-section-title">Quick Access</h2>
         <div class="button-group">
-            <a href="#link1" class="button">Button 1</a>
-            <a href="#link2" class="button">Button 2</a>
-            <a href="#link3" class="button">Button 3</a>
-            <a href="#link4" class="button">Button 4</a>
-            <a href="#link5" class="button">Button 5</a>
-            <a href="#link6" class="button">Button 6</a>
+            <a href="#link1" class="button">Create product</a>
+            <a href="#link2" class="button">Create category</a>
+            <a href="#link3" class="button">Excel Reports</a>
+            <a href="#link4" class="button">Dashbords</a>
+            <a href="#link5" class="button">Modifications</a>
+            <a href="#link6" class="button">Profile</a>
         </div>
     </section>
     
     <section class="info-section">
-        <section class="left-section">
-            <h2>Products</h2>
-            <div class="product-container">
-                <ul class="product-list">
-                    {% for product in products %}
-                        <li class="product-item">
-                            <h3>{{ product.name }}</h3>
-                            <p>Price: ${{ product.price }}</p>
-                            <p>Description: {{ product.description }}</p>
-                        </li>
-                    {% empty %}
-                        <li>No products available.</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </section>
+
+        <div class="info-part left">
+            <ul class="product-list">
+                {% for product in products %}
+                    <li class="product-item">
+                        <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                    </li>
+                {% empty %}
+                    <li>No products available.</li>
+                {% endfor %}
+            </ul>
+        </div>
 
         <div class="info-part center">
             <h3>Center Section Title</h3>
-            <p>Your content for the center section goes here.</p>
         </div>
 
         <div class="info-part right">
             <h3>Right Section Title</h3>
-            <p>Your content for the right section goes here.</p>
         </div>
     </section>
 
