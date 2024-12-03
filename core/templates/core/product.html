@@ -46,22 +46,16 @@
 
 {{ volume_data|json_script:"volumeData" }}
 {{ prices_data|json_script:"pricesData" }}
-<!--{{ costs_data|json_script:"costsData" }}-->
+{{ costs_data|json_script:"costsData" }}
 
 <script>
 
     let volumeGridOptions, priceGridOptions, costGridOptions;
+    let updatedVolumeRows = [];
+    let updatedPriceRows = [];
+    let updatedCostRows = [];
 
-    function showTab(tabName) {
-        const tabs = ['volume', 'price', 'cost'];
-
-        tabs.forEach(function(tab) {
-            document.getElementById(tab + '-tab').style.display = 'none';
-        });
-
-        document.getElementById(tabName + '-tab').style.display = 'block';
-    }
-
+    // Initialize grid options with data and columns
     const volumeData = JSON.parse(document.getElementById('volumeData').textContent);
     const pricesData = JSON.parse(document.getElementById('pricesData').textContent);
     const costsData = JSON.parse(document.getElementById('costsData').textContent);
@@ -88,43 +82,80 @@
         { headerName: "Overhead Cost", field: "overhead_cost", sortable: true, filter: true }
     ];
 
-    // Initialize grids
+    // Grid options
     volumeGridOptions = {
         columnDefs: volumeColumns,
         rowData: volumeData,
+        onCellValueChanged: (event) => {
+            updatedVolumeRows.push(event.data); // Track updated rows in volume grid
+        }
     };
     priceGridOptions = {
         columnDefs: priceColumns,
         rowData: pricesData,
+        onCellValueChanged: (event) => {
+            updatedPriceRows.push(event.data); // Track updated rows in price grid
+        }
     };
     costGridOptions = {
         columnDefs: costColumns,
         rowData: costsData,
+        onCellValueChanged: (event) => {
+            updatedCostRows.push(event.data); // Track updated rows in cost grid
+        }
     };
 
-    // Create the AG Grids
-    new agGrid.Grid(document.getElementById('volumeGrid'), volumeGridOptions);
-    new agGrid.Grid(document.getElementById('priceGrid'), priceGridOptions);
-    new agGrid.Grid(document.getElementById('costGrid'), costGridOptions);
+    window.onload = function() {
+        // Initialize the grids based on the visible tab
+        initializeGrid('volume'); // Default to 'volume' tab
+    }
 
-    showTab('volume');  // Default to 'volume' tab
+    function initializeGrid(tabName) {
+        if (tabName === 'volume' && !volumeGridOptions.gridInitialized) {
+            new agGrid.Grid(document.getElementById('volumeGrid'), volumeGridOptions);
+            volumeGridOptions.gridInitialized = true;
+        }
+        if (tabName === 'price' && !priceGridOptions.gridInitialized) {
+            new agGrid.Grid(document.getElementById('priceGrid'), priceGridOptions);
+            priceGridOptions.gridInitialized = true;
+        }
+        if (tabName === 'cost' && !costGridOptions.gridInitialized) {
+            new agGrid.Grid(document.getElementById('costGrid'), costGridOptions);
+            costGridOptions.gridInitialized = true;
+        }
+    }
+
+    function showTab(tabName) {
+        const tabs = ['volume', 'price', 'cost'];
+
+        // Hide all tabs
+        tabs.forEach(function(tab) {
+            document.getElementById(tab + '-tab').style.display = 'none';
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + '-tab').style.display = 'block';
+
+        // Initialize grid for the selected tab
+        initializeGrid(tabName);
+    }
 
     function saveChanges() {
-        let updatedRows;
+        let updatedRows = [];
 
-        // Get updated rows from the active grid
+        // Collect updated rows based on the active tab
         if (document.getElementById('volume-tab').style.display === 'block') {
-            updatedRows = volumeGridOptions.api.getUpdatedRows();
+            updatedRows = updatedVolumeRows;
         } else if (document.getElementById('price-tab').style.display === 'block') {
-            updatedRows = priceGridOptions.api.getUpdatedRows();
+            updatedRows = updatedPriceRows;
         } else if (document.getElementById('cost-tab').style.display === 'block') {
-            updatedRows = costGridOptions.api.getUpdatedRows();
+            updatedRows = updatedCostRows;
         }
 
-        if (updatedRows && updatedRows.length > 0) {
-            const updatedData = updatedRows.map(row => row.data);
+        if (updatedRows.length > 0) {
+            const updatedData = updatedRows.map(row => row);  // Collect updated rows
 
-            // Send updated data to server
+            // Send updated data to the server
             fetch("{% url 'product_save_changes' %}", {
                 method: 'POST',
                 headers: {

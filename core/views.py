@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db import transaction
+from .forms import ProductForm
 
 @login_required
 def home(request):
@@ -56,7 +57,7 @@ def save_product_changes(request):
             data = json.loads(request.body)
             updated_data = data.get('updated_data', [])
 
-            with transaction.atomic():  # Ensure all changes are saved atomically
+            with transaction.atomic():
                 for item in updated_data:
                     try:
                         volume_data = Volume.objects.get(id=item['id'])
@@ -81,4 +82,15 @@ def save_product_changes(request):
             return JsonResponse({'success': False, 'error': str(e)})
 
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+def create_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to the product list page or wherever you want
+    else:
+        form = ProductForm()
+
+    return render(request, 'core/create_product.html', {'form': form})
 

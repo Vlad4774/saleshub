@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'core/create_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="create-product-container">
+    <h2>Create New Product</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields automatically -->
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Create Product</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
