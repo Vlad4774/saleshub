@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'core/product.css' %}">
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
 <script src="{% static 'js/product.js' %}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css">
@@ -13,7 +13,10 @@
 <div class="product-container">
     <div class="product-sidebar" style="width: 25%; float: left;">
         <h2>Product Details</h2>
-        <p>{{ product.description }}</p>
+        <div id="product-tab" class="tab-content" style="display: block;">
+            <!-- Only this grid is shown in the sidebar -->
+            <div id="productGrid" class="ag-theme-alpine" style="height: 350px;"></div>
+        </div>
     </div>
     
     <div class="product-grid-container" style="width: 75%; float: left;">
@@ -44,22 +47,32 @@
     </div>
 </div>
 
+{{ product_data|json_script:"productData" }}
 {{ volume_data|json_script:"volumeData" }}
 {{ prices_data|json_script:"pricesData" }}
 {{ costs_data|json_script:"costsData" }}
 
 <script>
-
-    let volumeGridOptions, priceGridOptions, costGridOptions;
+    let productGridOptions, volumeGridOptions, priceGridOptions, costGridOptions;
     let updatedVolumeRows = [];
     let updatedPriceRows = [];
     let updatedCostRows = [];
 
     // Initialize grid options with data and columns
+    const product = JSON.parse(document.getElementById('productData').textContent);
     const volumeData = JSON.parse(document.getElementById('volumeData').textContent);
     const pricesData = JSON.parse(document.getElementById('pricesData').textContent);
     const costsData = JSON.parse(document.getElementById('costsData').textContent);
 
+    const productColumns = [
+        { headerName: "Name", field: "name" },
+        { headerName: "Short Description", field: "short_description" },
+        { headerName: "Description", field: "description" },
+        { headerName: "Category", field: "category_name" },
+        { headerName: "Sold To", field: "sold_to_name" },
+        { headerName: "Location", field: "location_name" }
+    ];
+    
     const volumeColumns = [
         { headerName: "Year", field: "year", sortable: true, filter: true, editable: true },
         { headerName: "Min Volume", field: "min_volume", sortable: true, filter: true, editable: true },
@@ -83,6 +96,10 @@
     ];
 
     // Grid options
+    productGridOptions = {
+        columnDefs: productColumns,
+        rowData: product,
+    };
     volumeGridOptions = {
         columnDefs: volumeColumns,
         rowData: volumeData,
@@ -180,6 +197,5 @@
             alert('No changes to save!');
         }
     }
-
 </script>
 {% endblock %}

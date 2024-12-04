@@ -60,26 +60,67 @@
     text-align: center;
 }
 
+/* Containerul general pentru lista de produse */
+.info-part.left {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    max-height: 400px; /* Înălțime maximă */
+    overflow-y: auto; /* Adaugă scroll vertical */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Titlul */
+.info-part.left h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+}
+
+/* Lista de produse */
 .product-list {
-    list-style: none; 
+    list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 400px; /* Set a maximum height for the container */
-    overflow-y: auto;  /* Adds vertical scrollbar if content exceeds max height */
-    padding: 15px;  
 }
 
+/* Elementele individuale din listă */
 .product-item {
-    margin-bottom: 15px; /* Space between product items */
-    color: #ffffff; /* Text color */
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.product-item h3 {
-    margin: 0; /* Remove margin from product name */
+.product-item:hover {
+    background-color: #f0f0f0;
 }
 
-.product-item p {
-    margin: 5px 0; /* Space between product description */
+/* Link-ul produsului */
+.product-item a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
 }
+
+.product-item a:hover {
+    text-decoration: underline;
+}
+
+/* Descrierea scurtă */
+.short-description {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+    line-height: 1.4;
+}
+
+
 
 

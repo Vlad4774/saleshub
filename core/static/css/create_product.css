@@ -1,4 +1,4 @@
-/* General styles for the form container */
+/* General Styles for the Form */
 form {
     max-width: 600px;
     margin: 50px auto;
@@ -36,7 +36,7 @@ form textarea::placeholder {
     color: #999999; /* Light gray for placeholder text */
 }
 
-/* Styling for the submit button */
+/* Submit Button Styling */
 form .btn-submit {
     background-color: #4CAF50; /* Green background */
     color: white; /* White text */
@@ -48,6 +48,7 @@ form .btn-submit {
     text-align: center; /* Center text */
     display: block; /* Block layout */
     width: 100%; /* Full width */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 /* Hover effect for the submit button */
@@ -55,7 +56,7 @@ form .btn-submit:hover {
     background-color: #45a049; /* Darker green on hover */
 }
 
-/* Error messages styling */
+/* Error Messages Styling */
 form .error {
     color: #d9534f; /* Red color for errors */
     font-size: 13px;
@@ -96,3 +97,26 @@ form select {
         font-size: 14px; /* Smaller font for button */
     }
 }
+
+/* General Styles for Labels and Inputs (to align with base.css) */
+form label,
+form input,
+form select,
+form textarea {
+    font-family: Arial, sans-serif; /* Same font as base.css */
+    color: #ffffff; /* White text color for inputs */
+}
+
+/* Placeholder for input fields */
+form input::placeholder,
+form textarea::placeholder {
+    color: #bbb; /* Light gray for placeholders */
+}
+
+/* Input Fields (avoid conflict with base.css) */
+form input, 
+form select,
+form textarea {
+    border: 1px solid #ccc; /* Default border for consistency */
+}
+

@@ -26,7 +26,7 @@ class Location(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     short_description = models.CharField(max_length=500)
-    description = models.TextField()
+    description = models.TextField() 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     sold_to = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)

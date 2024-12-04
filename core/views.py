@@ -35,7 +35,14 @@ def base(request):
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
-
+    product_data = {
+        'name': product.name,
+        'short_description': product.short_description,
+        'description': product.description,
+        'category': product.category.name if product.category else 'N/A',  # Handle case if category is None
+        'sold_to': product.sold_to.name if product.sold_to else 'N/A',      # Handle case if sold_to is None
+        'location': product.location.name if product.location else 'N/A',  # Handle case if location is None
+    }
     volumes = Volume.objects.filter(product=product)
     volume_data = list(volumes.values('year', 'min_volume', 'expected_volume', 'max_volume'))
     prices = Pricing.objects.filter(product=product)
@@ -43,7 +50,7 @@ def product_detail(request, id):
     costs = Cost.objects.filter(product=product)
     costs_data = list(costs.values('year', 'base_cost', 'labor_cost', 'material_cost', 'overhead_cost'))
     return render(request, 'core/product.html', {
-        'product': product,
+        'product_data': product_data,
         'volume_data': volume_data,
         'prices_data': prices_data,
         'costs_data': costs_data,
